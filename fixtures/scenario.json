@@ -1,0 +1,43 @@
+{
+  "entry_path": "/odata/start?scope=east",
+  "media": "application/json",
+  "routes": [
+    {
+      "path": "/odata/start?scope=east",
+      "method": "GET",
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json",
+        "X-Collection-Epoch": "g1"
+      },
+      "body": "{\"value\": [{\"id\": \"slot-7\", \"hall\": \"east\", \"service\": \"company-change\", \"start\": \"2026-11-20T09:00:00+08:00\"}], \"@odata.nextLink\": \"/odata/page2?scope=east\"}"
+    },
+    {
+      "path": "/odata/page2?scope=east",
+      "method": "GET",
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "{\"value\": [{\"id\": \"slot-8\", \"hall\": \"east\"}], \"@odata.deltaLink\": \"/odata/delta?scope=east&token=d1\"}"
+    },
+    {
+      "path": "/odata/delta?scope=east&token=d1",
+      "method": "GET",
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "{\"value\": [{\"id\": \"slot-7\", \"@removed\": {\"reason\": \"changed\"}}], \"@odata.deltaLink\": \"/odata/delta?scope=east&token=d2\"}"
+    },
+    {
+      "path": "/odata/delta?scope=east&token=d2",
+      "method": "GET",
+      "status": 410,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "{}"
+    }
+  ]
+}
